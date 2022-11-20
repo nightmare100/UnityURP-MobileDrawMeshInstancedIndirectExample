@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //[ExecuteAlways]
-public class InstancedIndirectGrassPosDefine : MonoBehaviour
+public class InstancedIndirectGrassPosDefineOther : MonoBehaviour
 {
     [Range(1, 40000000)]
     public int instanceCount = 1000000;
@@ -27,7 +27,7 @@ public class InstancedIndirectGrassPosDefine : MonoBehaviour
 
         GUI.Label(new Rect(300, 150, 200, 30), "Draw Distance: " + drawDistance);
         drawDistance = Mathf.Max(1, (int)(GUI.HorizontalSlider(new Rect(300, 200, 200, 30), drawDistance / 25f, 1, 8)) * 25);
-        InstancedIndirectGrassRenderer.instance.drawDistance = drawDistance;
+        InstancedIndirectGrassRendererOther.instance.drawDistance = drawDistance;
     }
     private void UpdatePosIfNeeded()
     {
@@ -61,7 +61,7 @@ public class InstancedIndirectGrassPosDefine : MonoBehaviour
         }
 
         //send all posWS to renderer
-        InstancedIndirectGrassRenderer.instance.allGrassPos = positions;
+        InstancedIndirectGrassRendererOther.instance.allGrassPos = positions;
         cacheCount = positions.Count;
     }
 

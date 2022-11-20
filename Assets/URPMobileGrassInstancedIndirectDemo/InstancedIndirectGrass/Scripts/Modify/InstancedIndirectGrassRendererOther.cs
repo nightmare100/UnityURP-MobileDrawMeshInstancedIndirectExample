@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.Profiling;
 
 // [ExecuteAlways]
-public class InstancedIndirectGrassRenderer : MonoBehaviour
+public class InstancedIndirectGrassRendererOther : MonoBehaviour
 {
     [Header("Settings")]
     public float drawDistance = 125;//this setting will affect performance a lot!
@@ -24,7 +24,7 @@ public class InstancedIndirectGrassRenderer : MonoBehaviour
     public List<Vector3> allGrassPos = new List<Vector3>();//user should update this list using C#
     //=====================================================
     [HideInInspector]   
-    public static InstancedIndirectGrassRenderer instance;// global ref to this script
+    public static InstancedIndirectGrassRendererOther instance;// global ref to this script
 
     private int cellCountX = -1;
     private int cellCountZ = -1;
@@ -167,11 +167,15 @@ public class InstancedIndirectGrassRenderer : MonoBehaviour
         // Final 1 big DrawMeshInstancedIndirect draw call 
         //====================================================================================
         // GPU per instance culling finished, copy visible count to argsBuffer, to setup DrawMeshInstancedIndirect's draw amount 
+
+
         ComputeBuffer.CopyCount(visibleInstancesOnlyPosWSIDBuffer, argsBuffer, 4);
+
 
         // Render 1 big drawcall using DrawMeshInstancedIndirect    
         Bounds renderBound = new Bounds();
         renderBound.SetMinMax(new Vector3(minX, 0, minZ), new Vector3(maxX, 0, maxZ));//if camera frustum is not overlapping this bound, DrawMeshInstancedIndirect will not even render
+
         Graphics.DrawMeshInstancedIndirect(GetGrassMeshCache(), 0, instanceMaterial, renderBound, argsBuffer);
     }
 
